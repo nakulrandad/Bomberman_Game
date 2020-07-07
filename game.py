@@ -11,7 +11,7 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Bomberman")
 
 # Load images
-MAIN_BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "bg_img", "green_grass.jpeg")), (WIDTH, HEIGHT))
+MAIN_BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "bg_img", "yellow_sand.png")), (WIDTH, HEIGHT))
 
 
 def game_begin():
