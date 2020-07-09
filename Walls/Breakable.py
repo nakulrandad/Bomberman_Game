@@ -43,4 +43,4 @@ class Br:
         for i in range(self.get_rows()-12):
             for j in range(self.get_cols()-9):
                 if self.list[j][i]:
-                    win.blit(self.img, (100+80*i, 120 + 80*j))
+                    win.blit(self.img, (80+80*i, 120 + 80*j))

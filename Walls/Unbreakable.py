@@ -20,7 +20,7 @@ class Unbr:
             win.blit(self.img,(0,i))
         for i in range(0,800,40):
             win.blit(self.img,(960,i))
-        for i in range(100,920, self.side_l + self.get_width()):
+        for i in range(80,920, self.side_l + self.get_width()):
             for j in range(80,760, self.side_l + self.get_height()):
                 win.blit(self.img,(i,j))
 
