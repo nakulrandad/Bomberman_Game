@@ -2,14 +2,16 @@ import basics
 import pygame
 import os
 from characters.player import Player
+from Walls.Unbreakable import Unbr
+from Walls.Breakable import Br
 WIN = basics.WIN
 
 # Player images
 PLAYER = pygame.transform.scale(pygame.image.load(os.path.join("assets", "player_img", "balloon_nobg.png")), (40,40))
 # Brick images
-RED_BRICK = pygame.transform.scale(pygame.image.load(os.path.join("assets", "brick_img", "red_brick_nobg.png")), (10,10))
-GREY_BRICK = pygame.transform.scale(pygame.image.load(os.path.join("assets", "brick_img", "grey_brick_nobg.png")), (10,10))
-WHITE_BRICK = pygame.transform.scale(pygame.image.load(os.path.join("assets", "brick_img", "white_brick.jpeg")), (10,10))
+RED_BRICK = pygame.transform.scale(pygame.image.load(os.path.join("assets", "brick_img", "red_brick_nobg_noborders.png")), (40,40))
+GREY_BRICK = pygame.transform.scale(pygame.image.load(os.path.join("assets", "brick_img", "grey_brick_nobg.png")), (40,40))
+WHITE_BRICK = pygame.transform.scale(pygame.image.load(os.path.join("assets", "brick_img", "white_brick.jpeg")), (40,40))
 
 # Background images
 BG = []
@@ -28,6 +30,8 @@ def main():
     players = []
 
     player1 = Player( basics.WIDTH/2 , basics.HEIGHT/2 , PLAYER, BOMB)
+    unbr_wall = Unbr(40,RED_BRICK)
+    Br_wall = Br(40,WHITE_BRICK)
     players.append(player1)
 
     def redraw_window():
@@ -36,6 +40,8 @@ def main():
             player.draw(WIN)
             player.plant(WIN)
             player.cooldown(WIN)
+        unbr_wall.draw(WIN)
+        Br_wall.draw(WIN)
         pygame.display.update()
 
     while run:
