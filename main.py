@@ -6,7 +6,6 @@ WIN = basics.WIN
 
 # Player images
 PLAYER = pygame.transform.scale(pygame.image.load(os.path.join("assets", "player_img", "balloon_nobg.png")), (40,40))
-
 # Brick images
 RED_BRICK = pygame.transform.scale(pygame.image.load(os.path.join("assets", "brick_img", "red_brick_nobg.png")), (10,10))
 GREY_BRICK = pygame.transform.scale(pygame.image.load(os.path.join("assets", "brick_img", "grey_brick_nobg.png")), (10,10))
@@ -19,7 +18,7 @@ BG.append(pygame.transform.scale(pygame.image.load(os.path.join("assets", "bg_im
 BG.append(pygame.transform.scale(pygame.image.load(os.path.join("assets", "bg_img", "snow.jpg")), (basics.WIDTH, basics.HEIGHT)))
 
 # Bomb images
-BOMB = pygame.image.load(os.path.join("assets", "bomb_img", "bomb_nobg.png"))
+BOMB = pygame.transform.scale(pygame.image.load(os.path.join("assets", "bomb_img", "bomb_nobg.png")),(40,40))
 
 def main():
     run = True
@@ -28,13 +27,15 @@ def main():
 
     players = []
 
-    player1 = Player( basics.WIDTH/2 , basics.HEIGHT/2 , PLAYER)
+    player1 = Player( basics.WIDTH/2 , basics.HEIGHT/2 , PLAYER, BOMB)
     players.append(player1)
 
     def redraw_window():
         WIN.blit(BG[bg_num], (0,0))
         for player in players:
             player.draw(WIN)
+            player.plant(WIN)
+            player.cooldown(WIN)
         pygame.display.update()
 
     while run:
