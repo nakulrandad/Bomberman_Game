@@ -52,7 +52,10 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
                 run = False
-
+            # tbr
+            if pygame.mouse.get_pressed() == (1,0,0):
+                print("Mouse pos", pygame.mouse.get_pos())
+            #
         for player in players:
             player.move()
         
