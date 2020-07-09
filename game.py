@@ -8,7 +8,7 @@ import basics
 pygame.init()
 pygame.display.set_caption("Bomberman")
 
-# Load image's
+# Load images
 MAIN_BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "bg_img", "yellow_sand.png")), (basics.WIDTH, basics.HEIGHT))
 
 
