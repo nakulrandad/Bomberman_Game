@@ -8,7 +8,7 @@ import basics
 pygame.init()
 pygame.display.set_caption("Bomberman")
 
-# Load images
+# Load image's
 MAIN_BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "bg_img", "yellow_sand.png")), (basics.WIDTH, basics.HEIGHT))
 
 
@@ -23,7 +23,7 @@ def game_begin():
         keys = pygame.key.get_pressed()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run == False
+                run = False
                 sys.exit()
             if keys[pygame.K_SPACE]:
                 main.main()
