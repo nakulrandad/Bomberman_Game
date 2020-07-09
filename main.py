@@ -7,7 +7,7 @@ from Walls.Breakable import Br
 WIN = basics.WIN
 
 # Player images
-PLAYER = pygame.transform.scale(pygame.image.load(os.path.join("assets", "player_img", "balloon_nobg.png")), (40,40))
+PLAYER = pygame.transform.scale(pygame.image.load(os.path.join("assets", "player_img", "balloon_nobg.png")), (42,42))
 # Brick images
 RED_BRICK = pygame.transform.scale(pygame.image.load(os.path.join("assets", "brick_img", "red_brick_nobg_noborders.png")), (40,40))
 GREY_BRICK = pygame.transform.scale(pygame.image.load(os.path.join("assets", "brick_img", "grey_brick_nobg.png")), (40,40))
@@ -29,7 +29,7 @@ def main():
 
     players = []
 
-    player1 = Player( basics.WIDTH/2 , basics.HEIGHT/2 , PLAYER, BOMB)
+    player1 = Player( basics.BRICK_EDGE , basics.BRICK_EDGE , PLAYER, BOMB)
     unbr_wall = Unbr(40,RED_BRICK)
     Br_wall = Br(40,WHITE_BRICK)
     players.append(player1)
