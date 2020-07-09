@@ -7,7 +7,7 @@ class Player:
         self.y = y
         self.img = player_img
         self.bomb = bomb_img
-        self.mask = pygame.mask.from_surface(self.img)
+        self.mask = pygame.mask.from_surface(player_img)
         self.lives = 4
         self.vel = 2
         self.COOLDOWN = basics.FPS*2
