@@ -14,8 +14,8 @@ class Unbr:
     def draw(self, win):
         for i in range(20,1000,40):
             win.blit(self.img,(i,0))
-        for i in range(20, 1000, 40):
-            win.blit(self.img, (i, 760))
+        for i in range(0, 1000, 40):
+            win.blit(self.img, (i, 800))
         for i in range(0,800,40):
             win.blit(self.img,(0,i))
         for i in range(0,800,40):
