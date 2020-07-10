@@ -39,7 +39,7 @@ class Player:
             if keys[pygame.K_UP] and self.y - self.vel >= basics.BRICK_EDGE: # up
                 self.x -= self.x%(basics.BRICK_EDGE*2) - basics.BRICK_EDGE
                 self.y -= self.vel
-            if keys[pygame.K_DOWN] and self.y + self.vel + self.get_height() + 15 <= basics.HEIGHT - basics.BRICK_EDGE: # down
+            if keys[pygame.K_DOWN] and self.y + self.vel + self.get_height() <= basics.HEIGHT - basics.BRICK_EDGE: # down
                 self.x -= self.x%(basics.BRICK_EDGE*2) - basics.BRICK_EDGE
                 self.y += self.vel
         # print("Player pos:", self.x, self.y) # tbr
