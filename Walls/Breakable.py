@@ -44,3 +44,12 @@ class Br:
             for j in range(self.get_cols()-9):
                 if self.list[j][i]:
                     win.blit(self.img, (80+80*i, 120 + 80*j))
+
+    def get_loc(self):
+        loc = []
+        for i in range(self.get_rows()-12):
+            for j in range(self.get_cols()-9):
+                if self.list[j][i]:
+                    loc.append((80+80*i, 120 + 80*j))
+        loc = list(set(loc)) # removes duplicates
+        return loc

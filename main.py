@@ -32,7 +32,20 @@ def main():
     player1 = Player( basics.BRICK_EDGE , basics.BRICK_EDGE , PLAYER, BOMB)
     unbr_wall = Unbr(40,RED_BRICK)
     Br_wall = Br(40,WHITE_BRICK)
+
+    # #tbr
+    # print(Br_wall.get_loc())
+    # #
+
     players.append(player1)
+
+    def collide(obj1, obj2):
+        offset_x = int(obj2.x - obj1.x)
+        offset_y = int(obj2.y - obj1.y)
+        return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
+
+    def wall_detection(obj):
+        pass
 
     def redraw_window():
         WIN.blit(BG[bg_num], (0,0))
@@ -48,6 +61,8 @@ def main():
         clock.tick(basics.FPS)
         redraw_window()
 
+        brick_locs = Br_wall.get_loc()
+
         keys = pygame.key.get_pressed()
         for event in pygame.event.get():
             if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
@@ -57,5 +72,19 @@ def main():
                 print("Mouse pos", pygame.mouse.get_pos())
             #
         for player in players:
+            for loc in brick_locs:
+                if (loc[0]-3+basics.BRICK_EDGE<=player.x<loc[0]+basics.BRICK_EDGE)and(loc[1]<=player.y<loc[1]+basics.BRICK_EDGE):
+                    player.mobility = [1,1,0,1]
+                    print("Can't move left")
+                if (loc[0]-basics.BRICK_EDGE<player.x<=loc[0]+3-basics.BRICK_EDGE)and(loc[1]<=player.y<loc[1]+basics.BRICK_EDGE):
+                    player.mobility = [1,1,1,0]
+                    print("Can't move right")
+                if (loc[1]-3+basics.BRICK_EDGE<=player.y<loc[1]+basics.BRICK_EDGE)and(loc[0]<=player.x<loc[0]+basics.BRICK_EDGE):
+                    player.mobility = [0,1,1,1]
+                    print("Can't move up", player.x, player.y)
+                if (loc[1]-basics.BRICK_EDGE<player.y<=loc[1]+3-basics.BRICK_EDGE)and(loc[0]<=player.x<loc[0]+basics.BRICK_EDGE):
+                    player.mobility = [1,0,1,1]
+                    print("Can't move down")
             player.move()
+            player.mobility = [1,1,1,1] # UP, DOWN, LEFT, RIGHT
         
