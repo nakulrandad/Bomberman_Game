@@ -1,8 +1,9 @@
 import basics
 import pygame
 
+
 class Player:
-    def __init__(self, x, y, player_img,bomb_img):
+    def __init__(self, x, y, player_img, bomb_img):
         self.x = x
         self.y = y
         self.img = player_img
@@ -15,6 +16,7 @@ class Player:
         self.bomb_x = 0
         self.bomb_y = 0
         self.move_offset = 7
+        self.mobility = [1,1,1,1] # UP, DOWN, LEFT, RIGHT
 
     def draw(self, win):
         win.blit(self.img, (self.x, self.y))
@@ -28,23 +30,34 @@ class Player:
     def move(self):
         keys = pygame.key.get_pressed()
 
+        # #tbr #move anywhere
+        # if keys[pygame.K_LEFT] and self.x - self.vel >= basics.BRICK_EDGE: # left
+        #         self.x -= self.vel
+        # if keys[pygame.K_RIGHT] and self.x + self.vel + self.get_width() <= basics.WIDTH - basics.BRICK_EDGE: # right
+        #         self.x += self.vel
+        # if keys[pygame.K_UP] and self.y - self.vel >= basics.BRICK_EDGE: # up
+        #         self.y -= self.vel
+        # if keys[pygame.K_DOWN] and self.y + self.vel + self.get_height() <= basics.HEIGHT - basics.BRICK_EDGE: # down
+        #         self.y += self.vel
+        # #
+
         if self.move_offset >= self.y%(basics.BRICK_EDGE*2) - basics.BRICK_EDGE >= -self.move_offset:
-            if keys[pygame.K_LEFT] and self.x - self.vel >= basics.BRICK_EDGE: # left
+            if keys[pygame.K_LEFT] and self.x - self.vel >= basics.BRICK_EDGE and self.mobility[2]: # left
                 self.y -= (self.y%(basics.BRICK_EDGE*2) - basics.BRICK_EDGE)
                 self.x -= self.vel
-            if keys[pygame.K_RIGHT] and self.x + self.vel + self.get_width() <= basics.WIDTH - basics.BRICK_EDGE: # right
+            if keys[pygame.K_RIGHT] and self.x + self.vel + self.get_width() <= basics.WIDTH - basics.BRICK_EDGE and self.mobility[3]: # right
                 self.y -= (self.y%(basics.BRICK_EDGE*2) - basics.BRICK_EDGE)
                 self.x += self.vel
         if self.move_offset >= self.x%(basics.BRICK_EDGE*2) - basics.BRICK_EDGE >= -self.move_offset:
-            if keys[pygame.K_UP] and self.y - self.vel >= basics.BRICK_EDGE: # up
+            if keys[pygame.K_UP] and self.y - self.vel >= basics.BRICK_EDGE and self.mobility[0]: # up
                 self.x -= self.x%(basics.BRICK_EDGE*2) - basics.BRICK_EDGE
                 self.y -= self.vel
-            if keys[pygame.K_DOWN] and self.y + self.vel + self.get_height() + 15 <= basics.HEIGHT - basics.BRICK_EDGE: # down
+            if keys[pygame.K_DOWN] and self.y + self.vel + self.get_height() <= basics.HEIGHT - basics.BRICK_EDGE and self.mobility[1]: # down
                 self.x -= self.x%(basics.BRICK_EDGE*2) - basics.BRICK_EDGE
                 self.y += self.vel
         # print("Player pos:", self.x, self.y) # tbr
 
-    def cooldown(self,win): # Supposed to run every frame
+    def cooldown(self, win): # Supposed to run every frame
         if self.cooldown_counter >= self.COOLDOWN:
             self.cooldown_counter = 0
         elif self.cooldown_counter > 0:
