@@ -2,12 +2,21 @@ import basics
 import pygame
 import os
 from characters.player import Player
+from characters.enemy import Enemy
 from Walls.Unbreakable import Unbr
 from Walls.Breakable import Br
 WIN = basics.WIN
 
 # Player images
 PLAYER = pygame.transform.scale(pygame.image.load(os.path.join("assets", "player_img", "balloon_nobg.png")), (42,42))
+
+# Enemy images
+BLINKY = pygame.transform.scale(pygame.image.load(os.path.join("assets", "enemy_img", "blinky_nobg.png")), (32,32))
+PINKY = pygame.transform.scale(pygame.image.load(os.path.join("assets", "enemy_img", "pinky_nobg.png")), (32,32))
+INKY = pygame.transform.scale(pygame.image.load(os.path.join("assets", "enemy_img", "inky_nobg.png")), (32,32))
+CLYDE = pygame.transform.scale(pygame.image.load(os.path.join("assets", "enemy_img", "clyde_nobg.png")), (32,32))
+ENEMIES = [BLINKY, PINKY, INKY, CLYDE]
+
 # Brick images
 RED_BRICK = pygame.transform.scale(pygame.image.load(os.path.join("assets", "brick_img", "red_brick_nobg_noborders.png")), (40,40))
 GREY_BRICK = pygame.transform.scale(pygame.image.load(os.path.join("assets", "brick_img", "grey_brick_nobg.png")), (40,40))
@@ -28,8 +37,10 @@ def main():
     bg_num = 0
 
     players = []
+    # enemies = []
 
     player1 = Player( basics.BRICK_EDGE , basics.BRICK_EDGE , PLAYER, BOMB)
+    # enemy1 = Enemy(basics.BRICK_EDGE*2 , basics.BRICK_EDGE, ENEMIES[0])
     unbr_wall = Unbr(40,RED_BRICK)
     Br_wall = Br(40,WHITE_BRICK)
 
@@ -53,6 +64,7 @@ def main():
             player.draw(WIN)
             player.plant(WIN)
             player.cooldown(WIN)
+        # enemy1.draw(WIN)
         unbr_wall.draw(WIN)
         Br_wall.draw(WIN)
         pygame.display.update()
