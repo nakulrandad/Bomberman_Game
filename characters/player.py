@@ -3,7 +3,7 @@ import pygame
 
 
 class Player:
-    def __init__(self, x, y, player_img, bomb_img,Br_wall):
+    def __init__(self, x, y, player_img, bomb_img, Br_wall):
         self.x = x
         self.y = y
         self.img = player_img
@@ -11,7 +11,7 @@ class Player:
         self.bomb_small = pygame.transform.scale(bomb_img,(30,30))
         self.mask = pygame.mask.from_surface(player_img)
         self.lives = 4
-        self.vel = 10
+        self.vel = 2
         self.COOLDOWN = basics.FPS*2
         self.cooldown_counter = 0
         self.bomb_x = 0

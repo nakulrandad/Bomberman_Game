@@ -40,9 +40,9 @@ def main():
     unbr_wall = Unbr(40,RED_BRICK)
     Br_wall = Br(40,WHITE_BRICK)
     player1 = Player(basics.BRICK_EDGE, basics.BRICK_EDGE, PLAYER, BOMB, Br_wall)
-    # #tbr
+    #tbr
     # print(Br_wall.get_loc())
-    # #
+    #
 
     players.append(player1)
 
