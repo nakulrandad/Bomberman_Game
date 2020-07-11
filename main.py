@@ -37,13 +37,9 @@ def main():
     bg_num = 0
 
     players = []
-    # enemies = []
-
-    player1 = Player( basics.BRICK_EDGE , basics.BRICK_EDGE , PLAYER, BOMB)
-    # enemy1 = Enemy(basics.BRICK_EDGE*2 , basics.BRICK_EDGE, ENEMIES[0])
     unbr_wall = Unbr(40,RED_BRICK)
     Br_wall = Br(40,WHITE_BRICK)
-
+    player1 = Player(basics.BRICK_EDGE, basics.BRICK_EDGE, PLAYER, BOMB, Br_wall)
     # #tbr
     # print(Br_wall.get_loc())
     # #

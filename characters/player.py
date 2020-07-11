@@ -3,18 +3,20 @@ import pygame
 
 
 class Player:
-    def __init__(self, x, y, player_img, bomb_img):
+    def __init__(self, x, y, player_img, bomb_img,Br_wall):
         self.x = x
         self.y = y
         self.img = player_img
         self.bomb = bomb_img
+        self.bomb_small = pygame.transform.scale(bomb_img,(30,30))
         self.mask = pygame.mask.from_surface(player_img)
         self.lives = 4
-        self.vel = 2
+        self.vel = 10
         self.COOLDOWN = basics.FPS*2
         self.cooldown_counter = 0
         self.bomb_x = 0
         self.bomb_y = 0
+        self.Br_wall1 = Br_wall
         self.move_offset = 7
         self.mobility = [1,1,1,1] # UP, DOWN, LEFT, RIGHT
 
@@ -59,9 +61,14 @@ class Player:
 
     def cooldown(self, win): # Supposed to run every frame
         if self.cooldown_counter >= self.COOLDOWN:
+            self.Br_wall1.destroy(self.bomb_x, self.bomb_y)
             self.cooldown_counter = 0
         elif self.cooldown_counter > 0:
-            win.blit(self.bomb, (self.bomb_x, self.bomb_y))
+            if (self.cooldown_counter/15)%2==1:
+                win.blit(self.bomb, (self.bomb_x, self.bomb_y))
+            else:
+                win.blit(self.bomb, (self.bomb_x, self.bomb_y)) # yet to adjust blinking effect before bomb explodes
+
             self.cooldown_counter += 1
 
     def plant(self,win):
