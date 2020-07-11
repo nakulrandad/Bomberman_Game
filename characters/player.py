@@ -8,6 +8,7 @@ class Player:
         self.y = y
         self.img = player_img
         self.bomb = bomb_img
+        self.bomb_big = bomb_img
         self.bomb_small = pygame.transform.scale(bomb_img,(30,30))
         self.mask = pygame.mask.from_surface(player_img)
         self.lives = 4
@@ -63,11 +64,19 @@ class Player:
         if self.cooldown_counter >= self.COOLDOWN:
             self.Br_wall1.destroy(self.bomb_x, self.bomb_y)
             self.cooldown_counter = 0
+            self.bomb = self.bomb_big
         elif self.cooldown_counter > 0:
-            if (self.cooldown_counter/15)%2==1:
-                win.blit(self.bomb, (self.bomb_x, self.bomb_y))
-            else:
-                win.blit(self.bomb, (self.bomb_x, self.bomb_y)) # yet to adjust blinking effect before bomb explodes
+            if self.cooldown_counter == int(self.COOLDOWN/4) or self.cooldown_counter == int(3*self.COOLDOWN/4):
+                self.bomb = self.bomb_small
+            elif self.cooldown_counter == int(self.COOLDOWN/2):
+                self.bomb = self.bomb_big
+            if self.bomb == self.bomb_small: # for proper placement
+                self.bomb_x += 5
+                self.bomb_y += 5
+            win.blit(self.bomb, (self.bomb_x, self.bomb_y)) # yet to adjust blinking effect before bomb explodes
+            if self.bomb == self.bomb_small:
+                self.bomb_x -= 5
+                self.bomb_y -= 5
 
             self.cooldown_counter += 1
 
