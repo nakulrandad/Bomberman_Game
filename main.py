@@ -28,11 +28,9 @@ def main():
     bg_num = 0
 
     players = []
-
-    player1 = Player( basics.BRICK_EDGE , basics.BRICK_EDGE , PLAYER, BOMB)
     unbr_wall = Unbr(40,RED_BRICK)
     Br_wall = Br(40,WHITE_BRICK)
-
+    player1 = Player(basics.BRICK_EDGE, basics.BRICK_EDGE, PLAYER, BOMB, Br_wall)
     # #tbr
     # print(Br_wall.get_loc())
     # #
