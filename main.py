@@ -102,4 +102,8 @@ def main():
 
         for enemy in enemies:
             enemy.move()
+
+
+if __name__ == "__main__":
+    main()
         
