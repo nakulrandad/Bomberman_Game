@@ -14,7 +14,7 @@ class Enemy:
         # self.move_offset = 7
         self.mobility = [0,0,0,0] # UP, DOWN, LEFT, RIGHT
         self.move_countdown = 0
-        self.COUNTDOWN = basics.BRICK_EDGE * 3
+        self.COUNTDOWN = basics.BRICK_EDGE * 4
 
     def draw(self, win):
         win.blit(self.img, (self.x + 4, self.y + 4)) # for proper placement
@@ -34,8 +34,18 @@ class Enemy:
     def move(self):
         self.countdown()
         if self.move_countdown == 1:
-            self.mobility = [0,0,0,0]
-            self.mobility[random.choice([0,1,2,3])] = 1
+            if self.mobility[0] == 0: # Can't go up
+                self.mobility = [0,0,0,0]
+                self.mobility[random.choice([1,2,3])] = 1
+            if self.mobility[1] == 0: # Can't go down
+                self.mobility = [0,0,0,0]
+                self.mobility[random.choice([0,2,3])] = 1
+            if self.mobility[2] == 0: # Can't go left
+                self.mobility = [0,0,0,0]
+                self.mobility[random.choice([0,2,3])] = 1
+            if self.mobility[3] == 0: # Can't go right
+                self.mobility = [0,0,0,0]
+                self.mobility[random.choice([0,1,2])] = 1
             print(self.x, self.y, "Enemy loc")
         if self.x - self.vel >= basics.BRICK_EDGE and self.mobility[2]: # left
             # self.y -= (self.y%(basics.BRICK_EDGE*2) - basics.BRICK_EDGE)
