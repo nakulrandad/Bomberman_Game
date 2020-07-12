@@ -37,9 +37,12 @@ def main():
     bg_num = 0
 
     players = []
+    enemies = []
     unbr_wall = Unbr(40,RED_BRICK)
     Br_wall = Br(40,WHITE_BRICK)
     player1 = Player(basics.BRICK_EDGE, basics.BRICK_EDGE, PLAYER, BOMB, Br_wall)
+    for i in range(4):
+        enemies.append(Enemy(basics.BRICK_EDGE*(7+i), basics.BRICK_EDGE*(1+2*i), ENEMIES[i]))
     #tbr
     # print(Br_wall.get_loc())
     #
@@ -60,9 +63,10 @@ def main():
             player.draw(WIN)
             player.plant(WIN)
             player.cooldown(WIN)
-        # enemy1.draw(WIN)
         unbr_wall.draw(WIN)
         Br_wall.draw(WIN)
+        for enemy in enemies:
+            enemy.draw(WIN)
         pygame.display.update()
 
     while run:
@@ -89,10 +93,13 @@ def main():
                     print("Can't move right")
                 if (loc[1]-3+basics.BRICK_EDGE<=player.y<loc[1]+basics.BRICK_EDGE)and(loc[0]<=player.x<loc[0]+basics.BRICK_EDGE):
                     player.mobility = [0,1,1,1]
-                    print("Can't move up", player.x, player.y)
+                    print("Can't move up")
                 if (loc[1]-basics.BRICK_EDGE<player.y<=loc[1]+3-basics.BRICK_EDGE)and(loc[0]<=player.x<loc[0]+basics.BRICK_EDGE):
                     player.mobility = [1,0,1,1]
                     print("Can't move down")
             player.move()
             player.mobility = [1,1,1,1] # UP, DOWN, LEFT, RIGHT
+
+        for enemy in enemies:
+            enemy.move()
         
