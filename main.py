@@ -5,6 +5,9 @@ from characters.player import Player
 from characters.enemy import Enemy
 from Walls.Unbreakable import Unbr
 from Walls.Breakable import Br
+from door_and_key.door import door
+from door_and_key.key import key
+
 WIN = basics.WIN
 
 # Player images
@@ -31,6 +34,10 @@ BG.append(pygame.transform.scale(pygame.image.load(os.path.join("assets", "bg_im
 # Bomb images
 BOMB = pygame.transform.scale(pygame.image.load(os.path.join("assets", "bomb_img", "bomb_nobg.png")),(40,40))
 
+#Door_Key image
+DOOR = pygame.transform.scale(pygame.image.load(os.path.join("assets", "door_key_img", "door.png")),(40,40))
+KEY = pygame.transform.scale(pygame.image.load(os.path.join("assets", "door_key_img", "key.png")),(40,40))
+
 def main():
     run = True
     clock = pygame.time.Clock()
@@ -40,6 +47,9 @@ def main():
     unbr_wall = Unbr(40,RED_BRICK)
     Br_wall = Br(40,WHITE_BRICK)
     player1 = Player(basics.BRICK_EDGE, basics.BRICK_EDGE, PLAYER, BOMB, Br_wall)
+    Door = door(DOOR)
+    Key = key(KEY)
+
     #tbr
     # print(Br_wall.get_loc())
     #
@@ -60,7 +70,10 @@ def main():
             player.draw(WIN)
             player.plant(WIN)
             player.cooldown(WIN)
+            player.exit_door(WIN,Key,Door.door_x,Door.door_y)
         # enemy1.draw(WIN)
+        Door.draw(WIN)
+        Key.draw(WIN)
         unbr_wall.draw(WIN)
         Br_wall.draw(WIN)
         pygame.display.update()

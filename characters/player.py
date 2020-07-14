@@ -20,6 +20,7 @@ class Player:
         self.Br_wall1 = Br_wall
         self.move_offset = 7
         self.mobility = [1,1,1,1] # UP, DOWN, LEFT, RIGHT
+        self.has_key = False
 
     def draw(self, win):
         win.blit(self.img, (self.x, self.y))
@@ -91,3 +92,14 @@ class Player:
             print("Player pos:", self.x, self.y) # tbr
             print("Bomb pos:", self.bomb_x, self.bomb_y) # tbr
             
+    def exit_door(self,win,Key,door_x,door_y):
+        if self.x == Key.key_x and self.y == Key.key_y:
+            Key.not_collected = False
+            self.has_key = True
+
+        if self.has_key and self.x == door_x and self.y == door_y:
+            font = pygame.font.Font('freesansbold.ttf', 100)
+            text = font.render('Level Complete', True, (0,255,255))
+            textRect = text.get_rect()
+            textRect.center = (1040 // 2, 800 // 2)
+            win.blit(text, textRect)
