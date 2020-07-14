@@ -65,6 +65,8 @@ class Player:
             self.Br_wall1.destroy(self.bomb_x, self.bomb_y)
             self.cooldown_counter = 0
             self.bomb = self.bomb_big
+            self.bomb_x = 0
+            self.bomb_y = 0
         elif self.cooldown_counter > 0:
             if self.cooldown_counter == int(self.COOLDOWN/4) or self.cooldown_counter == int(3*self.COOLDOWN/4):
                 self.bomb = self.bomb_small
