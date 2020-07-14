@@ -34,6 +34,8 @@ class Enemy:
     def move(self):
         self.countdown()
         if self.move_countdown == 1:
+            self.x = round(self.x/40) * 40
+            self.y = round(self.y/40) * 40
             if self.mobility[0] == 0: # Can't go up
                 self.mobility = [0,0,0,0]
                 self.mobility[random.choice([1,2,3])] = 1
