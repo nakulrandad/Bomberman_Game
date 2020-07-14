@@ -86,17 +86,17 @@ def main():
         for player in players:
             for loc in brick_locs:
                 if (loc[0]-3+basics.BRICK_EDGE<=player.x<loc[0]+basics.BRICK_EDGE)and(loc[1]<=player.y<loc[1]+basics.BRICK_EDGE):
-                    player.mobility = [1,1,0,1]
-                    print("Can't move left")
+                    player.mobility[2] = 0
+                    # print("Can't move left")
                 if (loc[0]-basics.BRICK_EDGE<player.x<=loc[0]+3-basics.BRICK_EDGE)and(loc[1]<=player.y<loc[1]+basics.BRICK_EDGE):
-                    player.mobility = [1,1,1,0]
-                    print("Can't move right")
+                    player.mobility[3] = 0
+                    # print("Can't move right")
                 if (loc[1]-3+basics.BRICK_EDGE<=player.y<loc[1]+basics.BRICK_EDGE)and(loc[0]<=player.x<loc[0]+basics.BRICK_EDGE):
-                    player.mobility = [0,1,1,1]
-                    print("Can't move up")
+                    player.mobility[0] = 0
+                    # print("Can't move up")
                 if (loc[1]-basics.BRICK_EDGE<player.y<=loc[1]+3-basics.BRICK_EDGE)and(loc[0]<=player.x<loc[0]+basics.BRICK_EDGE):
-                    player.mobility = [1,0,1,1]
-                    print("Can't move down")
+                    player.mobility[1] = 0
+                    # print("Can't move down")
             player.move()
             player.mobility = [1,1,1,1] # UP, DOWN, LEFT, RIGHT
 
@@ -108,18 +108,21 @@ def main():
         for enemy in enemies:
             for loc in brick_locs:
                 if (loc[0]-3+basics.BRICK_EDGE<=enemy.x<loc[0]+basics.BRICK_EDGE)and(loc[1]<=enemy.y<loc[1]+basics.BRICK_EDGE):
-                    enemy.mobility = [1,1,0,1]
+                    enemy.mobility[2] = 0
                     # print("Can't move left")
                 if (loc[0]-basics.BRICK_EDGE<enemy.x<=loc[0]+3-basics.BRICK_EDGE)and(loc[1]<=enemy.y<loc[1]+basics.BRICK_EDGE):
-                    enemy.mobility = [1,1,1,0]
+                    enemy.mobility[3] = 0
                     # print("Can't move right")
                 if (loc[1]-3+basics.BRICK_EDGE<=enemy.y<loc[1]+basics.BRICK_EDGE)and(loc[0]<=enemy.x<loc[0]+basics.BRICK_EDGE):
-                    enemy.mobility = [0,1,1,1]
+                    enemy.mobility[0] = 0
                     # print("Can't move up")
                 if (loc[1]-basics.BRICK_EDGE<enemy.y<=loc[1]+3-basics.BRICK_EDGE)and(loc[0]<=enemy.x<loc[0]+basics.BRICK_EDGE):
-                    enemy.mobility = [1,0,1,1]
+                    enemy.mobility[1] = 0
                     # print("Can't move down")
             enemy.move()
+            for player in players:
+                if collide(player, enemy):
+                    print("U r so dead!")
 
 
 if __name__ == "__main__":
