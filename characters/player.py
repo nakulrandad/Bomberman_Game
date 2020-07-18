@@ -3,11 +3,13 @@ import pygame
 
 
 class Player:
-    def __init__(self, x, y, player_img, bomb_img):
+    def __init__(self, x, y, player_img, bomb_img, Br_wall):
         self.x = x
         self.y = y
         self.img = player_img
         self.bomb = bomb_img
+        self.bomb_big = bomb_img
+        self.bomb_small = pygame.transform.scale(bomb_img,(30,30))
         self.mask = pygame.mask.from_surface(player_img)
         self.lives = 4
         self.vel = 2
@@ -15,8 +17,10 @@ class Player:
         self.cooldown_counter = 0
         self.bomb_x = 0
         self.bomb_y = 0
+        self.Br_wall1 = Br_wall
         self.move_offset = 7
         self.mobility = [1,1,1,1] # UP, DOWN, LEFT, RIGHT
+        self.has_key = False
 
     def draw(self, win):
         win.blit(self.img, (self.x, self.y))
@@ -59,9 +63,24 @@ class Player:
 
     def cooldown(self, win): # Supposed to run every frame
         if self.cooldown_counter >= self.COOLDOWN:
+            self.Br_wall1.destroy(self.bomb_x, self.bomb_y)
             self.cooldown_counter = 0
+            self.bomb = self.bomb_big
+            self.bomb_x = 0
+            self.bomb_y = 0
         elif self.cooldown_counter > 0:
-            win.blit(self.bomb, (self.bomb_x, self.bomb_y))
+            if self.cooldown_counter == int(self.COOLDOWN/4) or self.cooldown_counter == int(3*self.COOLDOWN/4):
+                self.bomb = self.bomb_small
+            elif self.cooldown_counter == int(self.COOLDOWN/2):
+                self.bomb = self.bomb_big
+            if self.bomb == self.bomb_small: # for proper placement
+                self.bomb_x += 5
+                self.bomb_y += 5
+            win.blit(self.bomb, (self.bomb_x, self.bomb_y)) # yet to adjust blinking effect before bomb explodes
+            if self.bomb == self.bomb_small:
+                self.bomb_x -= 5
+                self.bomb_y -= 5
+
             self.cooldown_counter += 1
 
     def plant(self,win):
@@ -75,3 +94,14 @@ class Player:
             print("Player pos:", self.x, self.y) # tbr
             print("Bomb pos:", self.bomb_x, self.bomb_y) # tbr
             
+    def exit_door(self,win,Key,door_x,door_y):
+        if self.x == Key.key_x and self.y == Key.key_y:
+            Key.not_collected = False
+            self.has_key = True
+
+        if self.has_key and self.x == door_x and self.y == door_y:
+            font = pygame.font.Font('freesansbold.ttf', 100)
+            text = font.render('Level Complete', True, (0,255,255))
+            textRect = text.get_rect()
+            textRect.center = (1040 // 2, 800 // 2)
+            win.blit(text, textRect)

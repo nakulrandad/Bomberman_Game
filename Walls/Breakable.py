@@ -9,7 +9,13 @@ class Br:
     def __init__(self, side_length, brwall_img):
         self.img = brwall_img
         self.side_l = side_length
-        self.list = [[random.randint(0,1) for i in range(23)] for j in range(17)]
+        self.list = [[random.randint(0,1) for i in range(23)] for j in range(19)]
+        #self.list = [[0 for i in range(23)] for j in range(19)]
+        for i in range(1,23,2):
+            for j in range(1,19,2):
+                self.list[j][i]=0
+
+
 
     def start_h(self):
         return 60
@@ -39,17 +45,63 @@ class Br:
     def get_height(self):
         return self.img.get_height()
 
+    def destroy(self, iy,x):
+        x  = round((x-40)/40)
+        iy = round((iy-40)/40)
+        #self.list = [[0 for i in range(11)] for j in range(8)]
+        if x==0:
+            if iy==0:
+                self.list[x+1][iy]=0
+                self.list[x][iy+1]=0
+            elif iy==22:
+                self.list[x + 1][iy] = 0
+                self.list[x][iy - 1] = 0
+            else:
+                self.list[x][iy + 1] = 0
+                self.list[x][iy - 1] = 0
+                self.list[x + 1][iy] = 0
+
+        elif x==18:
+            if iy==0:
+                self.list[x][iy]=0
+                self.list[x][iy+1]=0
+            elif iy==22:
+                self.list[x -1][iy] = 0
+                self.list[x][iy] = 0
+            else:
+                self.list[x - 1][iy] = 0
+                self.list[x][iy] = 0
+                self.list[x][iy + 1] = 0
+
+        elif iy==22:
+            self.list[x - 1][iy] = 0
+            self.list[x][iy-1] = 0
+            self.list[x+1][iy]=0
+
+        elif iy==0:
+            self.list[x - 1][iy] = 0
+            self.list[x][iy +1] = 0
+            self.list[x + 1][iy] = 0
+
+
+        else:
+            self.list[x + 1][iy] = 0
+            self.list[x][iy + 1] = 0
+            self.list[x - 1][iy] = 0
+            self.list[x][iy-1] = 0
+
+
     def draw(self, win):
-        for i in range(self.get_rows()-12):
-            for j in range(self.get_cols()-9):
+        for i in range(self.get_rows()):
+            for j in range(self.get_cols()+2):
                 if self.list[j][i]:
-                    win.blit(self.img, (80+80*i, 120 + 80*j))
+                    win.blit(self.img, (40+40*i, 40+40*j))
 
     def get_loc(self):
         loc = []
-        for i in range(self.get_rows()-12):
-            for j in range(self.get_cols()-9):
+        for i in range(self.get_rows()):
+            for j in range(self.get_cols()+2):
                 if self.list[j][i]:
-                    loc.append((80+80*i, 120 + 80*j))
+                    loc.append((40+40*i, 40+40*j))
         loc = list(set(loc)) # removes duplicates
         return loc
