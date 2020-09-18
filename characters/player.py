@@ -2,6 +2,7 @@ import basics
 import pygame
 
 
+
 class Player:
     def __init__(self, x, y, player_img, bomb_img, Br_wall):
         self.x = x
@@ -15,8 +16,8 @@ class Player:
         self.vel = 2
         self.COOLDOWN = basics.FPS*2
         self.cooldown_counter = 0
-        self.bomb_x = 0
-        self.bomb_y = 0
+        self.bomb_x = -100
+        self.bomb_y = -100
         self.Br_wall1 = Br_wall
         self.move_offset = 7
         self.mobility = [1,1,1,1] # UP, DOWN, LEFT, RIGHT
@@ -64,6 +65,7 @@ class Player:
     def cooldown(self, win): # Supposed to run every frame
         if self.cooldown_counter >= self.COOLDOWN:
             self.Br_wall1.destroy(self.bomb_x, self.bomb_y)
+
             self.cooldown_counter = 0
             self.bomb = self.bomb_big
             self.bomb_x = 0
@@ -93,15 +95,17 @@ class Player:
             self.cooldown_counter = 1
             print("Player pos:", self.x, self.y) # tbr
             print("Bomb pos:", self.bomb_x, self.bomb_y) # tbr
-            
+
+    def Player_kill(self, time):
+        if abs(self.x - self.bomb_x) < 60 and abs(self.y - self.bomb_y) < 60 and time >= basics.FPS*2:
+            return True
+        return False
+
     def exit_door(self,win,Key,door_x,door_y):
         if self.x == Key.key_x and self.y == Key.key_y:
             Key.not_collected = False
             self.has_key = True
 
-        if self.has_key and self.x == door_x and self.y == door_y:
-            font = pygame.font.Font('freesansbold.ttf', 100)
-            text = font.render('Level Complete', True, (0,255,255))
-            textRect = text.get_rect()
-            textRect.center = (1040 // 2, 800 // 2)
-            win.blit(text, textRect)
+        if self.has_key and abs(self.x - door_x) < 20 and abs(self.y - door_y) < 20:
+            return True
+        return False

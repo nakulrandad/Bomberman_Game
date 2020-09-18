@@ -10,10 +10,13 @@ class Br:
         self.img = brwall_img
         self.side_l = side_length
         self.list = [[random.randint(0,1) for i in range(23)] for j in range(19)]
-        #self.list = [[0 for i in range(23)] for j in range(19)]
+        # self.list = [[0 for i in range(23)] for j in range(19)]
         for i in range(1,23,2):
             for j in range(1,19,2):
                 self.list[j][i]=0
+        for i in range(5):
+            for j in range(5):
+                self.list[i][j] = 0
 
 
 
