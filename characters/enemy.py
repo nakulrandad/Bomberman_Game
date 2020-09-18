@@ -61,3 +61,11 @@ class Enemy:
         if self.y + self.vel + self.get_height() <= basics.HEIGHT - basics.BRICK_EDGE and self.mobility[1]: # down
             # self.x -= self.x%(basics.BRICK_EDGE*2) - basics.BRICK_EDGE
             self.y += self.vel
+
+    def kill(self, x1, y1, time):
+        x_dis = abs(self.x - x1)
+        y_dis = abs(self.y - y1)
+
+        if x_dis < 60 and y_dis < 60 and time >= basics.FPS*2:
+            return True
+        return False
